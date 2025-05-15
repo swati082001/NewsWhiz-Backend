@@ -1,0 +1,11 @@
+# Node.js
+node_modules/
+.env
+*.log
+
+# VSCode / system files
+.vscode/
+.DS_Store
+
+# Qdrant storage if present
+qdrant_storage/
