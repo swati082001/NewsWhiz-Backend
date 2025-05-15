@@ -10,8 +10,16 @@ const parser = new Parser();
 const RSS_FEED_URLS = [
   "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
   "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
-  "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+  "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
+  "https://rss.nytimes.com/services/xml/rss/nyt/Science.xml",
+  "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml",
+  "https://www.technologyreview.com/feed/",
+  "https://www.theverge.com/rss/index.xml",
+  "https://www.wired.com/feed/rss",
+  "https://www.cnbc.com/id/100003114/device/rss/rss.html",
+  "https://feeds.bbci.co.uk/news/world/rss.xml"
 ];
+
 
 async function fetchArticles(limit = 50) {
   let allItems = [];
