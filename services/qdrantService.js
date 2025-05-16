@@ -1,5 +1,6 @@
 const { QdrantClient } = require("@qdrant/js-client-rest");
 const { getEmbedding } = require("./embedding.js");
+require("dotenv").config();
 
 const client = new QdrantClient({
   url: process.env.QDRANT_URL, 
@@ -8,33 +9,43 @@ const client = new QdrantClient({
 
 const COLLECTION_NAME = "news";
 
-// Optional: Call this once at startup
 const initQdrantCollection = async () => {
   const collections = await client.getCollections();
+  console.log("Collections from Qdrant:", collections);
   const exists = collections.collections.find(c => c.name === COLLECTION_NAME);
 
   if (!exists) {
+  try {
     await client.createCollection(COLLECTION_NAME, {
       vectors: {
-        size: 768, // This must match your embedding vector size
+        size: 768,
         distance: "Cosine",
       },
     });
-    console.log("Qdrant collection created:", COLLECTION_NAME);
+    console.log(`Created collection: ${COLLECTION_NAME}`);
+  } catch (err) {
+    console.error("Failed to create collection:", err.message);
   }
+}else {
+  console.log(`✅ Collection already exists: ${COLLECTION_NAME}`);
+}
+
 };
+
 
 // Save an embedding into Qdrant
 const upsertDocument = async (id, vector, text) => {
-  await client.upsert(COLLECTION_NAME, {
-    points: [
-      {
-        id,
-        vector,
-        payload: { text },
-      },
-    ],
-  });
+  const result = await client.upsert(COLLECTION_NAME, {
+  points: [
+    {
+      id,
+      vector,
+      payload: { text: text },
+    },
+  ],
+});
+console.log("Upsert result:", result);
+  
 };
 
 // Retrieve top-k similar text chunks

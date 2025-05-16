@@ -52,17 +52,19 @@ async function fetchArticles(limit = 50) {
 }
 
 async function embedAndStore(articles) {
+
+  console.log("Calling initQdrantCollection...");
   await initQdrantCollection();
 
   for (const article of articles) {
     try {
       const embedding = await getEmbedding(article.content);
       await upsertDocument(article.id, embedding, article.content);
-      console.log(`Stored: ${article.title}`);
     } catch (err) {
       console.warn(`Failed to embed/store: ${article.title} - ${err.message}`);
     }
   }
+  
 }
 
 async function run() {
