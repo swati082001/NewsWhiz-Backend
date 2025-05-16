@@ -1,5 +1,4 @@
 const Parser = require("rss-parser");
-const axios = require("axios");
 const { getEmbedding } = require("../services/embedding.js");
 const { initQdrantCollection, upsertDocument } = require("../services/qdrantService.js");
 require("dotenv").config();

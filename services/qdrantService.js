@@ -20,7 +20,7 @@ const initQdrantCollection = async () => {
         distance: "Cosine",
       },
     });
-    console.log("✅ Qdrant collection created:", COLLECTION_NAME);
+    console.log("Qdrant collection created:", COLLECTION_NAME);
   }
 };
 
